@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon Dex</title>
+  <link rel="stylesheet" href="./dist/output.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-ground font-body text-ink">
+  <!-- ===================== EN-TÊTE ===================== -->
+  <header class="bg-ink text-white">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-8 py-5">
+      <div class="flex items-center gap-3">
+        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand">
+        <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,3 2,21 22,21" /><polygon points="12,9 7,18 17,18" /><circle cx="12" cy="14" r="1.5" fill="white" /><circle cx="12" cy="3" r="1" /></svg>
+        </div>
+        <div>
+          <p class="font-display text-2xl font-extrabold leading-none">Mon Dex</p>
+          <p class="text-sm text-gray-300"><b>[  Yu-Gi-Oh!  ]</b>· <span id="creature-count">6</span> créatures</p>
+        </div>
+      </div>
+      <nav aria-label="Navigation principale" class="flex flex-wrap gap-2">
+        <a href="#grid" class="rounded-full bg-white/10 px-4 py-2 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-brand">Créatures</a>
+        <a href="#team" class="rounded-full bg-white/10 px-4 py-2 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-brand">Mon équipe · <span id="team-count">0</span>/6</a>
+        <a href="#create" class="rounded-full bg-white px-4 py-2 font-bold text-ink hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-brand">+ Nouvelle créature</a>
+      </nav>
+    </div>
+  </header>
+  <main class="mx-auto flex max-w-7xl flex-col gap-8 px-8 py-8">
+    <!-- ===================== RECHERCHE ET FILTRES ===================== -->
+    <section aria-label="Recherche et filtres" class="flex flex-col gap-4">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h1 class="font-display text-white text-4xl font-extrabold">Trouver une créature</h1>
+        <label class="flex w-full text-white max-w-md flex-col gap-1 text-sm font-bold">
+          Rechercher par nom
+          <input id="search" type="search" placeholder="Tapez un nom..." class="field font-normal text-black focus:outline-none focus:ring-2 focus:ring-brand">
+        </label>
+      </div>
+      <div id="filters" role="group" aria-label="Filtrer par type" class="flex h-11 flex-nowrap gap-2 overflow-x-auto ">
+          <button type="button" class="chip bg-ink text-white border-ink shrink-0 focus:outline-none focus:ring-2 focus:ring-brand">TOUS</button>
+          <button type="button" class="chip shrink-0 focus:outline-none focus:ring-2 focus:ring-brand">FEU</button>
+          <button type="button" class="chip shrink-0 focus:outline-none focus:ring-2 focus:ring-brand">LUMIÈRE</button>
+          <button type="button" class="chip shrink-0 focus:outline-none focus:ring-2 focus:ring-brand">TÉNÈBRES</button>
+          <button type="button" class="chip shrink-0 focus:outline-none focus:ring-2 focus:ring-brand">VENT</button>
+          <button type="button" class="chip shrink-0 focus:outline-none focus:ring-2 focus:ring-brand">TERRE</button>
+      </div>
+    </section>
+
+    <div class="flex flex-col lg:flex-row gap-8 items-start">
+      <!-- ===================== GRILLE DES CRÉATURES ===================== -->
+      <section id="grid" aria-label="Créatures" class="grid w-full min-w-0 flex-1 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      </section>
+
+      <aside class="flex w-full lg:w-[420px] shrink-0 flex-col gap-6">
+
+      <section id="detail" aria-label="Détail de la créature" class="flex flex-col gap-4 rounded-card border-2 border-ink bg-white p-6">
+        Cliquez sur une carte pour voir son détail
+      </section>
+      <!-- ===================== MON ÉQUIPE (COMPLÉTÉE) ===================== -->
+      <section id="team" aria-label="Mon équipe" class="flex flex-col gap-4 rounded-card bg-white p-6 border-2 border-line">
+          <div class="flex items-center justify-between">
+            <h2 class="font-display text-2xl font-extrabold">Mon équipe</h2>
+            <span class="font-mono text-sm font-bold text-muted"><span id="team-count-aside">0</span>/6</span>
+          </div>
+          <p class="text-xs text-muted">6 créatures au maximum.</p>
+          <div id="team-slots" class="flex flex-col gap-2">
+            <div class="flex h-12 items-center justify-center rounded-xl border-2 border-dashed border-line bg-ground text-sm text-muted">01</div>
+            <div class="flex h-12 items-center justify-center rounded-xl border-2 border-dashed border-line bg-ground text-sm text-muted">02</div>
+            <div class="flex h-12 items-center justify-center rounded-xl border-2 border-dashed border-line bg-ground text-sm text-muted">03</div>
+            <div class="flex h-12 items-center justify-center rounded-xl border-2 border-dashed border-line bg-ground text-sm text-muted">04</div>
+            <div class="flex h-12 items-center justify-center rounded-xl border-2 border-dashed border-line bg-ground text-sm text-muted">05</div>
+            <div class="flex h-12 items-center justify-center rounded-xl border-2 border-dashed border-line bg-ground text-sm text-muted">06</div>
+          </div>
+        </section>
+      </aside>
+    </div>
+    <!-- ===================== FORMULAIRE DE CRÉATION ===================== -->
+    <section id="create" aria-label="Nouvelle créature" class="flex flex-col gap-6 rounded-card bg-white p-8">
+      <div>
+        <h2 class="font-display text-3xl font-extrabold">Nouvelle créature</h2>
+        <p class="text-muted">Chaque champ est vérifié avant l'ajout de la créature.</p>
+      </div>
+      <form id="creature-form" novalidate class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <label class="flex flex-col gap-1 text-sm font-bold">Numéro
+          <input name="id" type="text" placeholder="#010" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+          <span class="error-message text-xs font-normal text-red-500"></span>
+        </label>
+        <label class="flex flex-col gap-1 text-sm font-bold">Nom
+          <input name="name" type="text" placeholder="Nom de la créature" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+          <span class="error-message text-xs font-normal text-red-500"></span>
+        </label>
+        <label class="flex flex-col gap-1 text-sm font-bold">Type
+          <select name="type" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+            <option value="">Choisir un type</option>
+            <option>FEU</option><option>LUMIÈRE</option><option>TÉNÈBRES</option><option>VENT</option><option>TERRE</option>
+          </select>
+          <span class="error-message text-xs font-normal text-red-500"></span>
+        </label>
+        <label class="flex flex-col gap-1 text-sm font-bold">Etoiles
+          <input name="level" type="text" placeholder="1-12" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+          <span class="error-message text-xs font-normal text-red-500"></span>
+        </label>
+        <label class="flex flex-col gap-1 text-sm font-bold">ATK
+          <input name="stat1" type="text" placeholder="0 à 4000" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+          <span class="error-message text-xs font-normal text-red-500"></span>
+        </label>
+        <label class="flex flex-col gap-1 text-sm font-bold">DEF
+          <input name="stat2" type="text" placeholder="0 à 4000" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+          <span class="error-message text-xs font-normal text-red-500"></span>
+        </label>
+        <label class="flex flex-col gap-1 text-sm font-bold">Lien de l'image
+          <input name="image" type="text" placeholder="https://…/image.png" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+          <span class="error-message text-xs font-normal text-red-500"></span>
+        </label>
+        <label class="flex flex-col gap-1 text-sm font-bold md:col-span-2 lg:col-span-4">Description
+          <textarea name="description" rows="3" placeholder="10 à 200 caractères" class="rounded-xl border-2 border-line p-3 font-normal outline-none focus:ring-2 focus:ring-brand"></textarea>
+          <span class="error-message text-xs font-normal text-red-500"></span>
+        </label>
+        <div class="flex flex-wrap justify-end gap-3 md:col-span-2 lg:col-span-4">
+          <button type="reset" class="btn-outline px-6 focus:outline-none focus:ring-2 focus:ring-brand">Effacer</button>
+          <button type="submit" class="btn-primary focus:outline-none focus:ring-2 focus:ring-brand">Ajouter la créature</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+  <footer class="mx-auto max-w-7xl px-8 pb-10 text-sm text-muted">
+    Images : [source des images de votre univers]. Projet de fans réalisé dans le cadre d'une formation.
+  </footer>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
